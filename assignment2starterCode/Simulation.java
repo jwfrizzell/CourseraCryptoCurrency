@@ -13,10 +13,12 @@ public class Simulation {
 
    public static void main(String[] args) {
 
-      // There are four required command line arguments: p_graph (.1, .2, .3),
-      // p_malicious (.15, .30, .45), p_txDistribution (.01, .05, .10), 
-      // and numRounds (10, 20). You should try to test your CompliantNode
-      // code for all 3x3x3x2 = 54 combinations.
+      // There are four required command line arguments: 
+	  // p_graph (.1, .2, .3),
+      // p_malicious (.15, .30, .45), 
+	  // p_txDistribution (.01, .05, .10), 
+      // numRounds (10, 20). 
+	  //You should try to test your CompliantNode code for all 3x3x3x2 = 54 combinations.
 
       int numNodes = 100;
       double p_graph = Double.parseDouble(args[0]); // parameter for random graph: prob. that an edge will exist
@@ -26,11 +28,12 @@ public class Simulation {
 
       // pick which nodes are malicious and which are compliant
       Node[] nodes = new Node[numNodes];
+      
       for (int i = 0; i < numNodes; i++) {
          if(Math.random() < p_malicious)
             // When you are ready to try testing with malicious nodes, replace the
             // instantiation below with an instantiation of a MaliciousNode
-            nodes[i] = new MalDoNothing(p_graph, p_malicious, p_txDistribution, numRounds);
+            nodes[i] = new MaliciousNode(p_graph, p_malicious, p_txDistribution, numRounds);
          else
             nodes[i] = new CompliantNode(p_graph, p_malicious, p_txDistribution, numRounds);
       }
@@ -40,7 +43,8 @@ public class Simulation {
       boolean[][] followees = new boolean[numNodes][numNodes]; // followees[i][j] is true iff i follows j
       for (int i = 0; i < numNodes; i++) {
          for (int j = 0; j < numNodes; j++) {
-            if (i == j) continue;
+            if (i == j) 
+            		continue;
             if(Math.random() < p_graph) { // p_graph is .1, .2, or .3
                followees[i][j] = true;
             }
@@ -90,11 +94,12 @@ public class Simulation {
                   continue; // ensure that each tx is actually valid
 
                for (int j = 0; j < numNodes; j++) {
-                  if(!followees[j][i]) continue; // tx only matters if j follows i
+                  if(!followees[j][i]) 
+                	  	continue; // tx only matters if j follows i
 
                   if (!allProposals.containsKey(j)) {
-                	  Set<Candidate> candidates = new HashSet<>();
-                	  allProposals.put(j, candidates);
+                	  	Set<Candidate> candidates = new HashSet<>();
+                	  	allProposals.put(j, candidates);
                   }
                   
                   Candidate candidate = new Candidate(tx, i);

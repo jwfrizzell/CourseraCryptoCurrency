@@ -1,4 +1,3 @@
-package coursera_crypto;
 import java.util.ArrayList;
 import java.util.List;
 import java.security.PublicKey;
